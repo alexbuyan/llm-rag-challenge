@@ -1,0 +1,87 @@
+================================================================================
+COLLECTED STUDY MATERIALS
+================================================================================
+
+Query: system design interview
+Total chunks found: 5
+Topics: system design interview
+Sources: github
+
+----------------------------------------
+RELEVANT CONTENT:
+----------------------------------------
+
+[1] Source: github
+Title: GitHub: yangshun/tech-interview-handbook
+Relevance: 0.800
+Content:
+<h1 align="center">Tech Interview Handbook</h1>
+
+<div align="center">
+  <a href="https://www.techinterviewhandbook.org/">
+    <img src="assets/logo.svg" alt="Tech Interview Handbook" width="400" />
+  </a>
+  <br />
+  <h3>
+    <a href="https://www.techinterviewhandbook.org/">Read on the website</a>
+  </h3>
+  <p>
+    Join/follow us on <a href="https://discord.com/invite/usMqNaPczq" target="_blank">Discord</a> | <a href="https://twitter.com/techinterviewhb" target="_blank">𝕏 (Twitter)</a> | <a href=...
+----------------------------------------
+
+[2] Source: github
+Title: GitHub: h5bp/Front-end-Developer-Interview-Questions
+Relevance: 0.786
+Content:
+# Front-end Developer Interview Questions
+
+This repository contains a number of front-end interview questions that can be used when vetting potential candidates. It is by no means recommended to use every single question here on the same candidate (that would take hours). Choosing a few items from this list should help you vet the intended skills you require.
+
+**Note:** Keep in mind that many of these questions are open-ended and could lead to interesting discussions that tell you more about the...
+----------------------------------------
+
+[3] Source: github
+Title: GitHub: yangshun/tech-interview-handbook
+Relevance: 0.776
+Content:
+---
+
+<div align="center">
+  <h3>💡 Stop grinding mindlessly! Study coding question patterns efficiently with
+    <a href="https://www.designgurus.io/course/grokking-the-coding-interview?aff=kJSIoU">Grokking the Coding Interview</a> by Design Gurus 💡
+  </h3>
+</div>
+
+---
+
+## How is this repository different?
+
+There are many awesome books like "Cracking the Coding Interview" and interview-related repositories out there on GitHub, what makes this repository different? The difference is that many exis...
+----------------------------------------
+
+[4] Source: github
+Title: GitHub: jwasham/coding-interview-university
+Relevance: 0.770
+Content:
+## What is it?
+
+![Coding at the whiteboard - from HBO's Silicon Valley](https://d3j2pkmjtin6ou.cloudfront.net/coding-at-the-whiteboard-silicon-valley.png)
+
+This is my multi-month study plan for becoming a software engineer for a large company.
+
+**Required:**
+* A little experience with coding (variables, loops, methods/functions, etc)
+* Patience
+* Time
+
+Note this is a study plan for **software engineering**, not frontend engineering or full-stack development. There are really
+super roadmaps and c...
+----------------------------------------
+
+[5] Source: github
+Title: GitHub: h5bp/Front-end-Developer-Interview-Questions
+Relevance: 0.770
+Content:
+66%"><a href="http://about.me/appleboy"><img src="https://avatars0.githubusercontent.com/u/21979?v=4?s=120" width="120px;" alt="Bo-Yi Wu"/><br /><sub><b>Bo-Yi Wu</b></sub></a><br /><a href="https://github.com/h5bp/Front-end-Developer-Interview-Questions/commits?author=appleboy" title="Documentation">📖</a> <a href="https://github.com/h5bp/Front-end-Developer-Interview-Questions/pulls?q=is%3Apr+reviewed-by%3Aappleboy" title="Reviewed Pull Requests">👀</a></td>
+      <td align="center" valign="top" ...
+----------------------------------------

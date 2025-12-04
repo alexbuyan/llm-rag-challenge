@@ -1,0 +1,30 @@
+gather:
+  data_dir: "data/raw"
+  max_results: 4
+  include_sources:
+    - "arxiv"
+    - "github"
+    - "web"
+
+  github_repositories:
+    - "DopplerHQ/awesome-interview-questions"
+    - "yangshun/tech-interview-handbook"
+    - "donnemartin/system-design-primer"
+    - "jwasham/coding-interview-university"
+
+  web_sources:
+    - "https://www.geeksforgeeks.org"
+    - "https://leetcode.com"
+    - "https://stackoverflow.com"
+
+index:
+  use_openai_embeddings: false
+  persist_dir: "data/processed"
+  chunk_size: 512
+  chunk_overlap: 50
+
+rag:
+  similarity_top_k: 5
+  llm_model: "gpt-4o-mini"
+  temperature: 0.1
+  max_tokens: 2000
