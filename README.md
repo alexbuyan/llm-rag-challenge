@@ -1,54 +1,228 @@
 # LLM RAG Challenge
 
-Coursework for LLM Intro course (AITH). This project implements an AI agent capable of gathering research papers and performing Retrieval-Augmented Generation (RAG) to answer questions based on the collected knowledge.
+Курсовая работа по курсу "Введение в LLM" (AITH). Проект реализует RAG-систему (Retrieval-Augmented Generation) для подготовки к собеседованиям, способную собирать научные статьи и генерировать учебные материалы на основе собранных знаний.
 
-## Setup
+## Архитектура
 
-This project uses `uv` for dependency management.
+### Обзор пайплайна
 
-### 1. Install Dependencies
-Ensure you have `uv` installed, then sync the dependencies:
+```mermaid
+flowchart TB
+    subgraph DataCollection[Слой сбора данных]
+        ArXiv[ArXiv API]
+        GitHub[GitHub Repos]
+        Web[Web Scraping]
+    end
+    
+    subgraph Processing[Слой обработки]
+        Collector[InterviewDataCollector]
+        Chunker[Text Chunker]
+        Embedder[HuggingFace Embeddings]
+    end
+    
+    subgraph Storage[Слой хранения]
+        VectorDB[Vector Store]
+        DocStore[Document Store]
+    end
+    
+    subgraph RAG[RAG слой]
+        HybridRetriever[Hybrid Retriever]
+        BM25[BM25 Keyword Search]
+        VectorSearch[Vector Similarity]
+        QueryEngine[Query Engine]
+        Generator[LLM Generator]
+    end
+    
+    ArXiv --> Collector
+    GitHub --> Collector
+    Web --> Collector
+    Collector --> Chunker
+    Chunker --> Embedder
+    Embedder --> VectorDB
+    Chunker --> DocStore
+    VectorDB --> VectorSearch
+    DocStore --> BM25
+    VectorSearch --> HybridRetriever
+    BM25 --> HybridRetriever
+    HybridRetriever --> QueryEngine
+    QueryEngine --> Generator
+```
+
+### Описание компонентов
+
+| Компонент | Файл | Описание |
+|-----------|------|----------|
+| `InterviewDataCollector` | `src/processing/gather.py` | Собирает материалы из ArXiv, GitHub-репозиториев и веб-источников. Расширяет запросы до связанных тем и фильтрует по релевантности. |
+| `InterviewIndexer` | `src/processing/index.py` | Строит векторные индексы из собранных документов с помощью LlamaIndex. Поддерживает эмбеддинги OpenAI и HuggingFace. |
+| `HybridRetriever` | `src/processing/rag.py` | Комбинирует векторный поиск по схожести с BM25 поиском по ключевым словам. Настраиваемые веса для каждого метода. |
+| `InterviewRAGService` | `src/processing/rag.py` | Обрабатывает поиск и генерацию. Использует гибридный поиск и генерирует структурированные учебные материалы. |
+| `RAGEvaluator` | `src/evaluation/evaluate.py` | Комплексная оценка с метриками поиска, RAGAS и человеческой оценкой. |
+
+### Поток данных
+
+1. **Сбор**: Пользователь указывает запрос (например, "system design interview"). Коллектор расширяет его до связанных тем и получает материалы из настроенных источников.
+2. **Индексация**: Собранные документы разбиваются на чанки (512 токенов, перекрытие 50) и преобразуются в эмбеддинги с помощью HuggingFace `BAAI/bge-small-en-v1.5`.
+3. **Хранение**: Эмбеддинги сохраняются в векторное хранилище; оригинальные документы — в хранилище документов (оба сохраняются в `data/processed/`).
+4. **Поиск**: Гибридный поиск комбинирует:
+   - **Векторный поиск**: схожесть эмбеддингов запроса (вес 70%)
+   - **BM25**: поиск по ключевым словам (вес 30%)
+5. **Генерация**: Найденный контекст передаётся в LLM (по умолчанию: `gpt-4o-mini`) для генерации структурированного учебного материала.
+
+### Конфигурация
+
+Все настройки управляются через `config.yaml`:
+
+```yaml
+gather:
+  data_dir: "data/raw"
+  max_results: 4
+  include_sources: ["arxiv", "github", "web"]
+
+index:
+  use_openai_embeddings: false
+  persist_dir: "data/processed"
+  chunk_size: 512
+  chunk_overlap: 50
+
+rag:
+  similarity_top_k: 5
+  llm_model: "gpt-4o-mini"
+  temperature: 0.1
+  bm25_weight: 0.3      # Вес для поиска по ключевым словам
+  vector_weight: 0.7    # Вес для векторного поиска
+```
+
+## Установка
+
+Проект использует `uv` для управления зависимостями.
+
+### 1. Установка зависимостей
+
+Убедитесь, что у вас установлен `uv`, затем синхронизируйте зависимости:
 
 ```bash
 uv sync
 ```
 
-### 2. Configure Environment
-Create a `.env` file from the example:
+### 2. Настройка окружения
+
+Создайте файл `.env` из примера:
 
 ```bash
 cp env.example .env
 ```
 
-Edit the `.env` file to add your API keys.
+Отредактируйте файл `.env`, добавив ваши API-ключи.
 
-**Note:**
-- `OPENAI_API_KEY`: Required for the LLM (if using OpenAI models).
-- `OPENAI_API_BASE`: Optional, for compatible servers.
-- `LLM_MODEL_NAME`: Name of the model to use (default: `gpt-4o-mini`).
-- Embeddings are configured to use a local HuggingFace model (`BAAI/bge-small-en-v1.5`) by default, so no API key is needed for indexing.
+**Переменные окружения:**
+- `OPENAI_API_KEY`: Обязателен для LLM (при использовании моделей OpenAI).
+- `OPENAI_API_BASE`: Опционально, для совместимых серверов.
+- `LLM_MODEL_NAME`: Название модели (по умолчанию: `gpt-4o-mini`).
+- Эмбеддинги по умолчанию используют локальную модель HuggingFace (`BAAI/bge-small-en-v1.5`), поэтому API-ключ для индексации не требуется.
 
-## Usage
+## Использование
 
-The project provides a CLI entry point `main.py` with several commands:
+Проект предоставляет CLI через `main.py`:
 
-### Gather Data
-Download relevant research papers from ArXiv (Deep Learning, LLMs, Agents, etc.) into `data/raw`:
+### Подготовка материалов для собеседования
+
+Запуск полного пайплайна (сбор → индексация → генерация) для темы:
 
 ```bash
-uv run python main.py --gather
+uv run python main.py --query "system design interview" --guide
 ```
 
-### Build Index
-Process the documents in `data/raw` and build a vector search index, saving it to `data/processed`:
+### Быстрый режим
+
+Используйте `--quick` для более быстрых результатов с меньшим количеством источников:
 
 ```bash
-uv run python main.py --index
+uv run python main.py --query "algorithms" --guide --quick
 ```
 
-### Query System
-Ask a question to retrieve relevant information from the indexed documents. Currently configured to return the top 3 most relevant text chunks:
+### Экспорт в JSON
+
+Сохранение результатов в формате JSON:
 
 ```bash
-uv run python main.py --query "What are the latest trends in Reinforcement Learning?"
+uv run python main.py --query "machine learning" --guide --json
+```
+
+### Запуск оценки
+
+Оценка RAG-системы на валидационном наборе данных:
+
+```bash
+uv run python -m src.evaluation.evaluate
+```
+
+Для человеческой оценки:
+
+```bash
+uv run python -m src.evaluation.evaluate --human
+```
+
+## Результаты оценки
+
+### Базовая производительность (гибридный поиск)
+
+Оценка проведена на 25 запросах из валидационного набора (`data/evaluation/validation_set.json`).
+
+#### Метрики поиска
+
+| Метрика | Значение | Описание |
+|---------|----------|----------|
+| **MRR** | 0.960 | Mean Reciprocal Rank — релевантный документ обычно находится первым |
+| **Precision@3** | 0.347 | 35% результатов из топ-3 являются точными совпадениями |
+| **Recall@3** | 0.940 | 94% ожидаемых документов найдено в топ-3 |
+| **Precision@5** | 0.208 | Точность снижается при большем k (ожидаемо) |
+| **Recall@5** | 0.940 | Высокая полнота сохраняется |
+| **Recall@10** | 0.940 | Стабильная полнота при разных значениях k |
+
+#### Интерпретация метрик
+
+- **Высокий MRR (0.96)**: Система почти всегда возвращает наиболее релевантный документ первым, что указывает на отличное качество ранжирования.
+- **Высокая полнота (0.94)**: Система успешно находит 94% ожидаемых документов, демонстрируя хорошее покрытие.
+- **Низкая точность**: Ожидаемое поведение — точность снижается при увеличении k, так как мы извлекаем больше документов, чем минимальный набор ожидаемых источников. Это приемлемо, поскольку цель — полное покрытие.
+
+#### Преимущества гибридного поиска
+
+Гибридный подход (70% векторный + 30% BM25) обеспечивает:
+- Семантическое понимание от векторных эмбеддингов
+- Точное совпадение ключевых слов от BM25
+- Лучшую обработку технической терминологии и специфических фраз
+
+## Зависимости
+
+| Пакет | Назначение |
+|-------|------------|
+| `llama-index` | Основной RAG-фреймворк |
+| `llama-index-llms-openai` | Интеграция с OpenAI LLM |
+| `llama-index-embeddings-huggingface` | Локальные HuggingFace эмбеддинги |
+| `llama-index-readers-file` | Парсинг документов (PDF и др.) |
+| `arxiv` | Клиент ArXiv API |
+| `python-dotenv` | Управление переменными окружения |
+| `rank-bm25` | BM25 поиск по ключевым словам |
+| `ragas` | Фреймворк для оценки RAG |
+
+## Структура проекта
+
+```
+llm-rag-challenge/
+├── main.py                      # CLI точка входа
+├── config.yaml                  # Конфигурация пайплайна
+├── pyproject.toml               # Зависимости (uv)
+├── src/
+│   ├── processing/
+│   │   ├── gather.py            # Сбор данных
+│   │   ├── index.py             # Индексация и эмбеддинги
+│   │   └── rag.py               # Гибридный поиск и генерация
+│   └── evaluation/
+│       └── evaluate.py          # Метрики оценки и запуск
+└── data/
+    ├── raw/                     # Исходные документы (PDF)
+    ├── processed/               # Векторное хранилище и индексы
+    └── evaluation/
+        ├── validation_set.json  # Тестовые запросы и ground truth
+        └── results/             # Результаты оценки
 ```

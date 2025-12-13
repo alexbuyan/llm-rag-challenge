@@ -1,15 +1,31 @@
-# Raw Data Directory
+# Raw Data
 
-Place your raw data files here for the RAG pipeline to process.
+Исходные документы для RAG-системы, организованные по формату.
 
-## Supported File Types
-The pipeline uses `SimpleDirectoryReader` and supports the following formats:
-- **PDF** (`.pdf`): Research papers, slides, documentation.
-- **Text** (`.txt`): Plain text notes, logs.
-- **Markdown** (`.md`): Documentation, notes.
-- **Word** (`.docx`): Documents.
-- **PowerPoint** (`.pptx`): Presentations.
-- **CSV/Excel**: Structured data (may require specific formatting).
+## Структура
 
-## Automated Downloads
-The `gather` script will automatically populate this directory with top ArXiv papers on specified topics.
+```
+data/raw/
+├── pdf/       # PDF документы (научные статьи) - 18 файлов
+├── json/      # JSON метаданные - 12 файлов
+└── html/      # HTML документы - 1 файл
+```
+
+## Содержимое
+
+### PDF (18 научных статей)
+
+Научные статьи по темам: reinforcement learning, deep learning, NLP, LLM, AI safety.
+
+### JSON
+
+Метаданные статей в структурированном формате.
+
+### HTML
+
+Дополнительные документы в HTML-формате.
+
+---
+
+**Примечание:** Эта папка игнорируется в `.gitignore` (кроме README.md).
+Для воспроизведения индекса необходимо добавить свои документы.
