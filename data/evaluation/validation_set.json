@@ -1,0 +1,182 @@
+{
+  "version": "1.0",
+  "description": "Validation dataset for RAG evaluation based on research papers in data/raw",
+  "queries": [
+    {
+      "id": "q1",
+      "query": "What are the key components of a cybersecurity AI agent framework?",
+      "category": "cybersecurity",
+      "expected_sources": ["A cybersecurity AI agent selection and decision support framework.pdf"],
+      "reference_answer": "A cybersecurity AI agent framework typically includes components for agent selection, decision support, threat analysis, and response automation. The framework should provide mechanisms for evaluating agent capabilities and matching them to specific security tasks."
+    },
+    {
+      "id": "q2",
+      "query": "How does ARLBench approach hyperparameter optimization in reinforcement learning?",
+      "category": "reinforcement_learning",
+      "expected_sources": ["ARLBench Flexible and Efficient Benchmarking for Hyperparameter Optimization in Reinforcement Learning.pdf"],
+      "reference_answer": "ARLBench provides a flexible and efficient benchmarking framework for hyperparameter optimization (HPO) in reinforcement learning. It enables systematic evaluation of HPO methods across different RL algorithms and environments."
+    },
+    {
+      "id": "q3",
+      "query": "What is causal-paced deep reinforcement learning?",
+      "category": "reinforcement_learning",
+      "expected_sources": ["Causal-Paced Deep Reinforcement Learning.pdf"],
+      "reference_answer": "Causal-paced deep reinforcement learning is an approach that incorporates causal reasoning into the learning process, allowing agents to better understand cause-effect relationships in their environment and pace their learning accordingly."
+    },
+    {
+      "id": "q4",
+      "query": "Explain the mathematical foundations of deep learning",
+      "category": "deep_learning",
+      "expected_sources": ["The Modern Mathematics of Deep Learning.pdf", "Deep Learning and Computational Physics Lecture Notes.pdf"],
+      "reference_answer": "The mathematical foundations of deep learning include concepts from linear algebra (matrix operations, tensor calculus), calculus (gradient descent, backpropagation), probability theory, optimization, and approximation theory. Key concepts include neural network architectures, activation functions, and loss landscapes."
+    },
+    {
+      "id": "q5",
+      "query": "What is hierarchy-aware inverse reinforcement learning?",
+      "category": "reinforcement_learning",
+      "expected_sources": ["Exploring Hierarchy-Aware Inverse Reinforcement Learning.pdf"],
+      "reference_answer": "Hierarchy-aware inverse reinforcement learning extends traditional IRL by considering hierarchical structures in expert behavior. It aims to learn reward functions that capture both high-level goals and low-level action preferences from demonstrations."
+    },
+    {
+      "id": "q6",
+      "query": "What are the foundations of generative information retrieval?",
+      "category": "information_retrieval",
+      "expected_sources": ["Foundations of GenIR.pdf"],
+      "reference_answer": "Generative information retrieval (GenIR) combines traditional retrieval methods with generative models. It includes techniques for generating relevant documents or passages directly, rather than just retrieving from a fixed corpus."
+    },
+    {
+      "id": "q7",
+      "query": "How do large language models handle character composition of words?",
+      "category": "llm",
+      "expected_sources": ["Large Language Models Lack Understanding of Character Composition of Words.pdf"],
+      "reference_answer": "Research shows that large language models struggle with understanding character-level composition of words. They often fail at tasks requiring character manipulation, spelling, or understanding morphological structure, as they primarily operate on token-level representations."
+    },
+    {
+      "id": "q8",
+      "query": "What is evidence accumulation in machine learning?",
+      "category": "machine_learning",
+      "expected_sources": ["Learn to Accumulate Evidence from All Training Samples Theory and Practice.pdf"],
+      "reference_answer": "Evidence accumulation in machine learning refers to methods that aggregate information from multiple training samples to make more robust predictions. The approach focuses on learning how to effectively combine evidence across the entire training set."
+    },
+    {
+      "id": "q9",
+      "query": "How can AI agents be made safe and trustworthy?",
+      "category": "ai_safety",
+      "expected_sources": ["Safe Untrusted Proof-Carrying AI Agents toward the agentic lakehouse.pdf"],
+      "reference_answer": "Safe AI agents can be achieved through proof-carrying approaches where agents provide verifiable proofs of their behavior. This enables running untrusted agents safely by verifying their actions meet specified safety criteria."
+    },
+    {
+      "id": "q10",
+      "query": "What are deceptive capabilities in large language models?",
+      "category": "llm",
+      "expected_sources": ["Unmasking the Shadows of AI Investigating Deceptive Capabilities in Large Language Models.pdf"],
+      "reference_answer": "Large language models can exhibit deceptive capabilities including generating misleading information, producing plausible-sounding but incorrect answers, and potentially manipulating users. Research investigates these behaviors to develop mitigation strategies."
+    },
+    {
+      "id": "q11",
+      "query": "How is NLP taught to young students?",
+      "category": "nlp_education",
+      "expected_sources": ["A dissemination workshop for introducing young Italian students to NLP.pdf", "Teaching NLP with Bracelets and Restaurant Menus An Interactive Workshop for Italian Students.pdf"],
+      "reference_answer": "NLP can be taught to young students through interactive workshops using tangible examples like bracelets and restaurant menus. These approaches make abstract NLP concepts accessible through hands-on activities and relatable real-world applications."
+    },
+    {
+      "id": "q12",
+      "query": "What NLP tools exist for the Greek language?",
+      "category": "nlp",
+      "expected_sources": ["GR-NLP-TOOLKIT An Open-Source NLP Toolkit for Modern Greek.pdf"],
+      "reference_answer": "GR-NLP-TOOLKIT is an open-source NLP toolkit specifically designed for Modern Greek. It provides various NLP capabilities tailored to the Greek language, addressing the unique challenges of processing Greek text."
+    },
+    {
+      "id": "q13",
+      "query": "How do LLMs demonstrate self-knowledge and personality?",
+      "category": "llm",
+      "expected_sources": ["Is Self-knowledge and Action Consistent or Not Investigating Large Language Models Personality.pdf"],
+      "reference_answer": "Research investigates whether LLMs show consistent self-knowledge and personality traits. Studies examine if their stated preferences align with their actual behaviors, revealing insights about consistency and potential personality-like characteristics in these models."
+    },
+    {
+      "id": "q14",
+      "query": "What role does physics play in deep learning?",
+      "category": "deep_learning",
+      "expected_sources": ["Deep Learning and Computational Physics Lecture Notes.pdf"],
+      "reference_answer": "Deep learning and computational physics intersect in multiple ways: physics-informed neural networks, using neural networks to solve PDEs, and applying physical principles to understand neural network behavior. Deep learning also aids in simulating physical systems."
+    },
+    {
+      "id": "q15",
+      "query": "What are benchmarking approaches for reinforcement learning?",
+      "category": "reinforcement_learning",
+      "expected_sources": ["ARLBench Flexible and Efficient Benchmarking for Hyperparameter Optimization in Reinforcement Learning.pdf"],
+      "reference_answer": "Benchmarking in reinforcement learning involves standardized environments, evaluation protocols, and metrics. ARLBench provides flexible benchmarking specifically for hyperparameter optimization, enabling fair comparison of different HPO methods."
+    },
+    {
+      "id": "q16",
+      "query": "How can inverse reinforcement learning handle complex demonstrations?",
+      "category": "reinforcement_learning",
+      "expected_sources": ["Exploring Hierarchy-Aware Inverse Reinforcement Learning.pdf"],
+      "reference_answer": "Hierarchy-aware approaches to inverse reinforcement learning can better handle complex demonstrations by decomposing behavior into hierarchical structures, capturing both high-level intentions and low-level action patterns from expert demonstrations."
+    },
+    {
+      "id": "q17",
+      "query": "What are the challenges of tokenization for language understanding?",
+      "category": "llm",
+      "expected_sources": ["Large Language Models Lack Understanding of Character Composition of Words.pdf"],
+      "reference_answer": "Tokenization presents challenges for language understanding as models operate on tokens rather than characters. This leads to difficulties with spelling, character-level tasks, and understanding morphological word structure, especially for rare or novel words."
+    },
+    {
+      "id": "q18",
+      "query": "What is the agentic lakehouse architecture?",
+      "category": "ai_systems",
+      "expected_sources": ["Safe Untrusted Proof-Carrying AI Agents toward the agentic lakehouse.pdf"],
+      "reference_answer": "The agentic lakehouse is an architecture that combines data lakehouse concepts with AI agents. It enables safe execution of AI agents on data infrastructure through proof-carrying mechanisms that verify agent behavior."
+    },
+    {
+      "id": "q19",
+      "query": "How is causality incorporated into reinforcement learning?",
+      "category": "reinforcement_learning",
+      "expected_sources": ["Causal-Paced Deep Reinforcement Learning.pdf"],
+      "reference_answer": "Causality can be incorporated into reinforcement learning through causal-paced approaches that help agents understand cause-effect relationships. This enables more sample-efficient learning and better generalization to new situations."
+    },
+    {
+      "id": "q20",
+      "query": "What mathematical concepts are essential for understanding neural networks?",
+      "category": "deep_learning",
+      "expected_sources": ["The Modern Mathematics of Deep Learning.pdf"],
+      "reference_answer": "Essential mathematical concepts for neural networks include linear algebra (matrices, tensors), calculus (derivatives, chain rule), optimization theory (gradient descent, convexity), probability theory, and approximation theory. Understanding these foundations helps in designing and analyzing neural network architectures."
+    },
+    {
+      "id": "q21",
+      "query": "How do AI agents make decisions in cybersecurity?",
+      "category": "cybersecurity",
+      "expected_sources": ["A cybersecurity AI agent selection and decision support framework.pdf"],
+      "reference_answer": "AI agents in cybersecurity make decisions through frameworks that evaluate threats, assess available responses, and select appropriate actions. Decision support systems help in choosing the right agent for specific security tasks."
+    },
+    {
+      "id": "q22",
+      "query": "What approaches exist for evaluating LLM alignment?",
+      "category": "llm",
+      "expected_sources": ["Unmasking the Shadows of AI Investigating Deceptive Capabilities in Large Language Models.pdf", "Is Self-knowledge and Action Consistent or Not Investigating Large Language Models Personality.pdf"],
+      "reference_answer": "LLM alignment evaluation includes investigating deceptive capabilities, testing self-knowledge consistency, and examining personality traits. These approaches help understand whether models behave as intended and align with human values."
+    },
+    {
+      "id": "q23",
+      "query": "How can machine learning accumulate evidence from training data?",
+      "category": "machine_learning",
+      "expected_sources": ["Learn to Accumulate Evidence from All Training Samples Theory and Practice.pdf"],
+      "reference_answer": "Machine learning can accumulate evidence from training data through methods that systematically aggregate information across samples. This approach improves model robustness by considering evidence from the entire training distribution rather than individual examples."
+    },
+    {
+      "id": "q24",
+      "query": "What are interactive methods for teaching NLP concepts?",
+      "category": "nlp_education",
+      "expected_sources": ["Teaching NLP with Bracelets and Restaurant Menus An Interactive Workshop for Italian Students.pdf", "A dissemination workshop for introducing young Italian students to NLP.pdf"],
+      "reference_answer": "Interactive NLP teaching methods include workshops using physical objects like bracelets to represent sequences, restaurant menus for classification tasks, and hands-on activities that make abstract concepts tangible for students."
+    },
+    {
+      "id": "q25",
+      "query": "What is generative retrieval and how does it differ from traditional retrieval?",
+      "category": "information_retrieval",
+      "expected_sources": ["Foundations of GenIR.pdf"],
+      "reference_answer": "Generative retrieval uses language models to directly generate relevant content rather than retrieving from a fixed corpus. Unlike traditional retrieval that matches queries to existing documents, generative approaches can synthesize new responses grounded in learned knowledge."
+    }
+  ]
+}
+
