@@ -16,6 +16,7 @@ from llama_index.core.chat_engine import CondensePlusContextChatEngine
 from llama_index.core.memory import ChatMemoryBuffer
 from llama_index.core.llms import ChatMessage, MessageRole
 from llama_index.llms.openai import OpenAI
+from llama_index.llms.mistralai import MistralAI
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from dotenv import load_dotenv
 
@@ -82,22 +83,38 @@ class ChatService:
             
         try:
             load_dotenv()
-            
+
             # Setup LLM
-            model_name = self.llm_model or os.getenv("LLM_MODEL_NAME", "gpt-4o-mini")
-            api_key = os.getenv("OPENAI_API_KEY")
-            base_url = os.getenv("OPENAI_API_BASE")
-            
-            if not api_key:
-                logger.error("OPENAI_API_KEY not found in environment")
-                return False
-            
-            Settings.llm = OpenAI(
-                model=model_name,
-                api_key=api_key,
-                api_base=base_url,
-                temperature=self.temperature
-            )
+            llm_provider = os.getenv("LLM_PROVIDER", "openai").lower()
+            model_name = self.llm_model or os.getenv("LLM_MODEL_NAME")
+
+            if llm_provider == "mistral":
+                api_key = os.getenv("MISTRAL_API_KEY")
+                if not api_key:
+                    logger.error("MISTRAL_API_KEY not found in environment")
+                    return False
+
+                Settings.llm = MistralAI(
+                    model=model_name or "mistral-large-latest",
+                    api_key=api_key,
+                    temperature=self.temperature
+                )
+
+            else:
+                # Default: OpenAI
+                api_key = os.getenv("OPENAI_API_KEY")
+                base_url = os.getenv("OPENAI_API_BASE")
+
+                if not api_key:
+                    logger.error("OPENAI_API_KEY not found in environment")
+                    return False
+
+                Settings.llm = OpenAI(
+                    model=model_name or "gpt-4o-mini",
+                    api_key=api_key,
+                    api_base=base_url,
+                    temperature=self.temperature
+                )
             
             # Setup embeddings
             Settings.embed_model = HuggingFaceEmbedding(
