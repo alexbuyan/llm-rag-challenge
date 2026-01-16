@@ -1,0 +1,32 @@
+[server]
+# Bind to all interfaces for Docker
+address = "0.0.0.0"
+port = 8501
+
+# Disable automatic browser opening
+headless = true
+
+# Enable CORS for development
+enableCORS = false
+enableXsrfProtection = false
+
+# File watcher settings (disabled for Docker)
+fileWatcherType = "none"
+runOnSave = false
+
+[browser]
+# Don't try to open browser in container
+gatherUsageStats = false
+
+[theme]
+# Use dark theme to match the app's design
+base = "dark"
+primaryColor = "#e94560"
+backgroundColor = "#1a1a2e"
+secondaryBackgroundColor = "#16213e"
+textColor = "#ffffff"
+
+[client]
+# Disable toolbar in production
+showErrorDetails = true
+toolbarMode = "minimal"
