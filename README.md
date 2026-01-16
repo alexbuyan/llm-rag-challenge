@@ -53,7 +53,7 @@ flowchart TB
 | Компонент | Файл | Описание |
 |-----------|------|----------|
 | `InterviewDataCollector` | `src/processing/gather.py` | Собирает материалы из ArXiv, GitHub-репозиториев и веб-источников. Расширяет запросы до связанных тем и фильтрует по релевантности. |
-| `InterviewIndexer` | `src/processing/index.py` | Строит векторные индексы из собранных документов с помощью LlamaIndex. Поддерживает эмбеддинги OpenAI и HuggingFace. |
+| `InterviewIndexer` | `src/processing/index.py` | Строит векторные индексы из собранных документов с помощью LlamaIndex. Использует HuggingFace эмбеддинги. |
 | `HybridRetriever` | `src/processing/rag.py` | Комбинирует векторный поиск по схожести с BM25 поиском по ключевым словам. Настраиваемые веса для каждого метода. |
 | `InterviewRAGService` | `src/processing/rag.py` | Обрабатывает поиск и генерацию. Использует гибридный поиск и генерирует структурированные учебные материалы. |
 | `RAGEvaluator` | `src/evaluation/evaluate.py` | Комплексная оценка с метриками поиска, RAGAS и человеческой оценкой. |
@@ -66,7 +66,7 @@ flowchart TB
 4. **Поиск**: Гибридный поиск комбинирует:
    - **Векторный поиск**: схожесть эмбеддингов запроса (вес 70%)
    - **BM25**: поиск по ключевым словам (вес 30%)
-5. **Генерация**: Найденный контекст передаётся в LLM (по умолчанию: `gpt-4o-mini`) для генерации структурированного учебного материала.
+5. **Генерация**: Найденный контекст передаётся в LLM (по умолчанию: `mistral-large-latest`) для генерации структурированного учебного материала.
 
 ### Конфигурация
 
@@ -79,14 +79,13 @@ gather:
   include_sources: ["arxiv", "github", "web"]
 
 index:
-  use_openai_embeddings: false
   persist_dir: "data/processed"
   chunk_size: 512
   chunk_overlap: 50
 
 rag:
   similarity_top_k: 5
-  llm_model: "gpt-4o-mini"
+  llm_model: "mistral-large-latest"
   temperature: 0.1
   bm25_weight: 0.3      # Вес для поиска по ключевым словам
   vector_weight: 0.7    # Вес для векторного поиска
@@ -115,9 +114,8 @@ cp env.example .env
 Отредактируйте файл `.env`, добавив ваши API-ключи.
 
 **Переменные окружения:**
-- `OPENAI_API_KEY`: Обязателен для LLM (при использовании моделей OpenAI).
-- `OPENAI_API_BASE`: Опционально, для совместимых серверов.
-- `LLM_MODEL_NAME`: Название модели (по умолчанию: `gpt-4o-mini`).
+- `MISTRAL_API_KEY`: Обязателен для LLM (Mistral AI).
+- `MISTRAL_MODEL_NAME`: Название модели (по умолчанию: `mistral-large-latest`).
 - Эмбеддинги по умолчанию используют локальную модель HuggingFace (`BAAI/bge-small-en-v1.5`), поэтому API-ключ для индексации не требуется.
 
 ## Использование
@@ -197,7 +195,7 @@ uv run python -m src.evaluation.evaluate --human
 | Пакет | Назначение |
 |-------|------------|
 | `llama-index` | Основной RAG-фреймворк |
-| `llama-index-llms-openai` | Интеграция с OpenAI LLM |
+| `llama-index-llms-mistralai` | Интеграция с Mistral AI LLM |
 | `llama-index-embeddings-huggingface` | Локальные HuggingFace эмбеддинги |
 | `llama-index-readers-file` | Парсинг документов (PDF и др.) |
 | `arxiv` | Клиент ArXiv API |

@@ -6,457 +6,177 @@
       "id": "q1",
       "query": "What are the key components of a cybersecurity AI agent framework?",
       "category": "cybersecurity",
-      "expected_sources": [
-        "A cybersecurity AI agent selection and decision support framework.pdf"
-      ],
+      "expected_sources": ["A cybersecurity AI agent selection and decision support framework.pdf"],
       "reference_answer": "A cybersecurity AI agent framework typically includes components for agent selection, decision support, threat analysis, and response automation. The framework should provide mechanisms for evaluating agent capabilities and matching them to specific security tasks."
     },
     {
       "id": "q2",
       "query": "How does ARLBench approach hyperparameter optimization in reinforcement learning?",
       "category": "reinforcement_learning",
-      "expected_sources": [
-        "ARLBench Flexible and Efficient Benchmarking for Hyperparameter Optimization in Reinforcement Learning.pdf"
-      ],
+      "expected_sources": ["ARLBench Flexible and Efficient Benchmarking for Hyperparameter Optimization in Reinforcement Learning.pdf"],
       "reference_answer": "ARLBench provides a flexible and efficient benchmarking framework for hyperparameter optimization (HPO) in reinforcement learning. It enables systematic evaluation of HPO methods across different RL algorithms and environments."
     },
     {
       "id": "q3",
       "query": "What is causal-paced deep reinforcement learning?",
       "category": "reinforcement_learning",
-      "expected_sources": [
-        "Causal-Paced Deep Reinforcement Learning.pdf"
-      ],
+      "expected_sources": ["Causal-Paced Deep Reinforcement Learning.pdf"],
       "reference_answer": "Causal-paced deep reinforcement learning is an approach that incorporates causal reasoning into the learning process, allowing agents to better understand cause-effect relationships in their environment and pace their learning accordingly."
     },
     {
       "id": "q4",
       "query": "Explain the mathematical foundations of deep learning",
       "category": "deep_learning",
-      "expected_sources": [
-        "The Modern Mathematics of Deep Learning.pdf",
-        "Deep Learning and Computational Physics Lecture Notes.pdf"
-      ],
+      "expected_sources": ["The Modern Mathematics of Deep Learning.pdf", "Deep Learning and Computational Physics Lecture Notes.pdf"],
       "reference_answer": "The mathematical foundations of deep learning include concepts from linear algebra (matrix operations, tensor calculus), calculus (gradient descent, backpropagation), probability theory, optimization, and approximation theory. Key concepts include neural network architectures, activation functions, and loss landscapes."
     },
     {
       "id": "q5",
       "query": "What is hierarchy-aware inverse reinforcement learning?",
       "category": "reinforcement_learning",
-      "expected_sources": [
-        "Exploring Hierarchy-Aware Inverse Reinforcement Learning.pdf"
-      ],
+      "expected_sources": ["Exploring Hierarchy-Aware Inverse Reinforcement Learning.pdf"],
       "reference_answer": "Hierarchy-aware inverse reinforcement learning extends traditional IRL by considering hierarchical structures in expert behavior. It aims to learn reward functions that capture both high-level goals and low-level action preferences from demonstrations."
     },
     {
       "id": "q6",
       "query": "What are the foundations of generative information retrieval?",
       "category": "information_retrieval",
-      "expected_sources": [
-        "Foundations of GenIR.pdf"
-      ],
+      "expected_sources": ["Foundations of GenIR.pdf"],
       "reference_answer": "Generative information retrieval (GenIR) combines traditional retrieval methods with generative models. It includes techniques for generating relevant documents or passages directly, rather than just retrieving from a fixed corpus."
     },
     {
       "id": "q7",
       "query": "How do large language models handle character composition of words?",
       "category": "llm",
-      "expected_sources": [
-        "Large Language Models Lack Understanding of Character Composition of Words.pdf"
-      ],
+      "expected_sources": ["Large Language Models Lack Understanding of Character Composition of Words.pdf"],
       "reference_answer": "Research shows that large language models struggle with understanding character-level composition of words. They often fail at tasks requiring character manipulation, spelling, or understanding morphological structure, as they primarily operate on token-level representations."
     },
     {
       "id": "q8",
       "query": "What is evidence accumulation in machine learning?",
       "category": "machine_learning",
-      "expected_sources": [
-        "Learn to Accumulate Evidence from All Training Samples Theory and Practice.pdf"
-      ],
+      "expected_sources": ["Learn to Accumulate Evidence from All Training Samples Theory and Practice.pdf"],
       "reference_answer": "Evidence accumulation in machine learning refers to methods that aggregate information from multiple training samples to make more robust predictions. The approach focuses on learning how to effectively combine evidence across the entire training set."
     },
     {
       "id": "q9",
       "query": "How can AI agents be made safe and trustworthy?",
       "category": "ai_safety",
-      "expected_sources": [
-        "Safe Untrusted Proof-Carrying AI Agents toward the agentic lakehouse.pdf"
-      ],
+      "expected_sources": ["Safe Untrusted Proof-Carrying AI Agents toward the agentic lakehouse.pdf"],
       "reference_answer": "Safe AI agents can be achieved through proof-carrying approaches where agents provide verifiable proofs of their behavior. This enables running untrusted agents safely by verifying their actions meet specified safety criteria."
     },
     {
       "id": "q10",
       "query": "What are deceptive capabilities in large language models?",
       "category": "llm",
-      "expected_sources": [
-        "Unmasking the Shadows of AI Investigating Deceptive Capabilities in Large Language Models.pdf"
-      ],
+      "expected_sources": ["Unmasking the Shadows of AI Investigating Deceptive Capabilities in Large Language Models.pdf"],
       "reference_answer": "Large language models can exhibit deceptive capabilities including generating misleading information, producing plausible-sounding but incorrect answers, and potentially manipulating users. Research investigates these behaviors to develop mitigation strategies."
     },
     {
       "id": "q11",
       "query": "How is NLP taught to young students?",
       "category": "nlp_education",
-      "expected_sources": [
-        "A dissemination workshop for introducing young Italian students to NLP.pdf",
-        "Teaching NLP with Bracelets and Restaurant Menus An Interactive Workshop for Italian Students.pdf"
-      ],
+      "expected_sources": ["A dissemination workshop for introducing young Italian students to NLP.pdf", "Teaching NLP with Bracelets and Restaurant Menus An Interactive Workshop for Italian Students.pdf"],
       "reference_answer": "NLP can be taught to young students through interactive workshops using tangible examples like bracelets and restaurant menus. These approaches make abstract NLP concepts accessible through hands-on activities and relatable real-world applications."
     },
     {
       "id": "q12",
       "query": "What NLP tools exist for the Greek language?",
       "category": "nlp",
-      "expected_sources": [
-        "GR-NLP-TOOLKIT An Open-Source NLP Toolkit for Modern Greek.pdf"
-      ],
+      "expected_sources": ["GR-NLP-TOOLKIT An Open-Source NLP Toolkit for Modern Greek.pdf"],
       "reference_answer": "GR-NLP-TOOLKIT is an open-source NLP toolkit specifically designed for Modern Greek. It provides various NLP capabilities tailored to the Greek language, addressing the unique challenges of processing Greek text."
     },
     {
       "id": "q13",
       "query": "How do LLMs demonstrate self-knowledge and personality?",
       "category": "llm",
-      "expected_sources": [
-        "Is Self-knowledge and Action Consistent or Not Investigating Large Language Models Personality.pdf"
-      ],
+      "expected_sources": ["Is Self-knowledge and Action Consistent or Not Investigating Large Language Models Personality.pdf"],
       "reference_answer": "Research investigates whether LLMs show consistent self-knowledge and personality traits. Studies examine if their stated preferences align with their actual behaviors, revealing insights about consistency and potential personality-like characteristics in these models."
     },
     {
       "id": "q14",
       "query": "What role does physics play in deep learning?",
       "category": "deep_learning",
-      "expected_sources": [
-        "Deep Learning and Computational Physics Lecture Notes.pdf"
-      ],
+      "expected_sources": ["Deep Learning and Computational Physics Lecture Notes.pdf"],
       "reference_answer": "Deep learning and computational physics intersect in multiple ways: physics-informed neural networks, using neural networks to solve PDEs, and applying physical principles to understand neural network behavior. Deep learning also aids in simulating physical systems."
     },
     {
       "id": "q15",
       "query": "What are benchmarking approaches for reinforcement learning?",
       "category": "reinforcement_learning",
-      "expected_sources": [
-        "ARLBench Flexible and Efficient Benchmarking for Hyperparameter Optimization in Reinforcement Learning.pdf"
-      ],
+      "expected_sources": ["ARLBench Flexible and Efficient Benchmarking for Hyperparameter Optimization in Reinforcement Learning.pdf"],
       "reference_answer": "Benchmarking in reinforcement learning involves standardized environments, evaluation protocols, and metrics. ARLBench provides flexible benchmarking specifically for hyperparameter optimization, enabling fair comparison of different HPO methods."
     },
     {
       "id": "q16",
       "query": "How can inverse reinforcement learning handle complex demonstrations?",
       "category": "reinforcement_learning",
-      "expected_sources": [
-        "Exploring Hierarchy-Aware Inverse Reinforcement Learning.pdf"
-      ],
+      "expected_sources": ["Exploring Hierarchy-Aware Inverse Reinforcement Learning.pdf"],
       "reference_answer": "Hierarchy-aware approaches to inverse reinforcement learning can better handle complex demonstrations by decomposing behavior into hierarchical structures, capturing both high-level intentions and low-level action patterns from expert demonstrations."
     },
     {
       "id": "q17",
       "query": "What are the challenges of tokenization for language understanding?",
       "category": "llm",
-      "expected_sources": [
-        "Large Language Models Lack Understanding of Character Composition of Words.pdf"
-      ],
+      "expected_sources": ["Large Language Models Lack Understanding of Character Composition of Words.pdf"],
       "reference_answer": "Tokenization presents challenges for language understanding as models operate on tokens rather than characters. This leads to difficulties with spelling, character-level tasks, and understanding morphological word structure, especially for rare or novel words."
     },
     {
       "id": "q18",
       "query": "What is the agentic lakehouse architecture?",
       "category": "ai_systems",
-      "expected_sources": [
-        "Safe Untrusted Proof-Carrying AI Agents toward the agentic lakehouse.pdf"
-      ],
+      "expected_sources": ["Safe Untrusted Proof-Carrying AI Agents toward the agentic lakehouse.pdf"],
       "reference_answer": "The agentic lakehouse is an architecture that combines data lakehouse concepts with AI agents. It enables safe execution of AI agents on data infrastructure through proof-carrying mechanisms that verify agent behavior."
     },
     {
       "id": "q19",
       "query": "How is causality incorporated into reinforcement learning?",
       "category": "reinforcement_learning",
-      "expected_sources": [
-        "Causal-Paced Deep Reinforcement Learning.pdf"
-      ],
+      "expected_sources": ["Causal-Paced Deep Reinforcement Learning.pdf"],
       "reference_answer": "Causality can be incorporated into reinforcement learning through causal-paced approaches that help agents understand cause-effect relationships. This enables more sample-efficient learning and better generalization to new situations."
     },
     {
       "id": "q20",
       "query": "What mathematical concepts are essential for understanding neural networks?",
       "category": "deep_learning",
-      "expected_sources": [
-        "The Modern Mathematics of Deep Learning.pdf"
-      ],
+      "expected_sources": ["The Modern Mathematics of Deep Learning.pdf"],
       "reference_answer": "Essential mathematical concepts for neural networks include linear algebra (matrices, tensors), calculus (derivatives, chain rule), optimization theory (gradient descent, convexity), probability theory, and approximation theory. Understanding these foundations helps in designing and analyzing neural network architectures."
     },
     {
       "id": "q21",
       "query": "How do AI agents make decisions in cybersecurity?",
       "category": "cybersecurity",
-      "expected_sources": [
-        "A cybersecurity AI agent selection and decision support framework.pdf"
-      ],
+      "expected_sources": ["A cybersecurity AI agent selection and decision support framework.pdf"],
       "reference_answer": "AI agents in cybersecurity make decisions through frameworks that evaluate threats, assess available responses, and select appropriate actions. Decision support systems help in choosing the right agent for specific security tasks."
     },
     {
       "id": "q22",
       "query": "What approaches exist for evaluating LLM alignment?",
       "category": "llm",
-      "expected_sources": [
-        "Unmasking the Shadows of AI Investigating Deceptive Capabilities in Large Language Models.pdf",
-        "Is Self-knowledge and Action Consistent or Not Investigating Large Language Models Personality.pdf"
-      ],
+      "expected_sources": ["Unmasking the Shadows of AI Investigating Deceptive Capabilities in Large Language Models.pdf", "Is Self-knowledge and Action Consistent or Not Investigating Large Language Models Personality.pdf"],
       "reference_answer": "LLM alignment evaluation includes investigating deceptive capabilities, testing self-knowledge consistency, and examining personality traits. These approaches help understand whether models behave as intended and align with human values."
     },
     {
       "id": "q23",
       "query": "How can machine learning accumulate evidence from training data?",
       "category": "machine_learning",
-      "expected_sources": [
-        "Learn to Accumulate Evidence from All Training Samples Theory and Practice.pdf"
-      ],
+      "expected_sources": ["Learn to Accumulate Evidence from All Training Samples Theory and Practice.pdf"],
       "reference_answer": "Machine learning can accumulate evidence from training data through methods that systematically aggregate information across samples. This approach improves model robustness by considering evidence from the entire training distribution rather than individual examples."
     },
     {
       "id": "q24",
       "query": "What are interactive methods for teaching NLP concepts?",
       "category": "nlp_education",
-      "expected_sources": [
-        "Teaching NLP with Bracelets and Restaurant Menus An Interactive Workshop for Italian Students.pdf",
-        "A dissemination workshop for introducing young Italian students to NLP.pdf"
-      ],
+      "expected_sources": ["Teaching NLP with Bracelets and Restaurant Menus An Interactive Workshop for Italian Students.pdf", "A dissemination workshop for introducing young Italian students to NLP.pdf"],
       "reference_answer": "Interactive NLP teaching methods include workshops using physical objects like bracelets to represent sequences, restaurant menus for classification tasks, and hands-on activities that make abstract concepts tangible for students."
     },
     {
       "id": "q25",
       "query": "What is generative retrieval and how does it differ from traditional retrieval?",
       "category": "information_retrieval",
-      "expected_sources": [
-        "Foundations of GenIR.pdf"
-      ],
+      "expected_sources": ["Foundations of GenIR.pdf"],
       "reference_answer": "Generative retrieval uses language models to directly generate relevant content rather than retrieving from a fixed corpus. Unlike traditional retrieval that matches queries to existing documents, generative approaches can synthesize new responses grounded in learned knowledge."
-    },
-    {
-      "id": "q26",
-      "query": "What are the key design goals of the RETA-LLM toolkit?",
-      "category": "rag",
-      "expected_sources": [
-        "RETA-LLM A Retrieval-Augmented Large Language Model Toolkit.pdf"
-      ],
-      "reference_answer": "RETA-LLM is designed to support modular, efficient construction of retrieval-augmented language models. Its goals include flexibility in retriever-generator design, reproducibility, and support for experimentation with RAG pipelines."
-    },
-    {
-      "id": "q27",
-      "query": "How does RETA-LLM support experimentation with retrieval strategies?",
-      "category": "rag",
-      "expected_sources": [
-        "RETA-LLM A Retrieval-Augmented Large Language Model Toolkit.pdf"
-      ],
-      "reference_answer": "RETA-LLM allows interchangeable retrieval modules and configurable pipelines, enabling researchers to compare different retrievers, indexing strategies, and generation approaches."
-    },
-    {
-      "id": "q28",
-      "query": "What challenges arise when scaling fully binarized large language models?",
-      "category": "llm",
-      "expected_sources": [
-        "FBI-LLM Scaling Up Fully Binarized LLMs from Scratch via Autoregressive Distillation.json"
-      ],
-      "reference_answer": "Scaling binarized LLMs introduces challenges such as optimization instability, reduced representational capacity, and training inefficiency, which are addressed through techniques like autoregressive distillation."
-    },
-    {
-      "id": "q29",
-      "query": "What is autoregressive distillation in the context of FBI-LLM?",
-      "category": "llm",
-      "expected_sources": [
-        "FBI-LLM Scaling Up Fully Binarized LLMs from Scratch via Autoregressive Distillation.json"
-      ],
-      "reference_answer": "Autoregressive distillation trains a binarized student model to imitate the output distributions of a full-precision teacher model, enabling effective learning despite extreme quantization."
-    },
-    {
-      "id": "q30",
-      "query": "Why is explainability important when using LLMs as judges?",
-      "category": "evaluation",
-      "expected_sources": [
-        "Systematic Evaluation of LLM-as-a-Judge in LLM Alignment Tasks Explainable Metrics and Diverse Promp.pdf"
-      ],
-      "reference_answer": "Explainability helps users understand why an LLM-as-a-Judge produces certain evaluations, increasing trust and enabling diagnosis of biases or failure modes in alignment assessments."
-    },
-    {
-      "id": "q31",
-      "query": "What metrics are proposed for evaluating LLM-as-a-Judge systems?",
-      "category": "evaluation",
-      "expected_sources": [
-        "Systematic Evaluation of LLM-as-a-Judge in LLM Alignment Tasks Explainable Metrics and Diverse Promp.pdf"
-      ],
-      "reference_answer": "The paper proposes explainable and diverse metrics that assess consistency, robustness to prompt variation, and alignment with human judgments."
-    },
-    {
-      "id": "q32",
-      "query": "How do deceptive behaviors emerge in large language models?",
-      "category": "llm",
-      "expected_sources": [
-        "Unmasking the Shadows of AI Investigating Deceptive Capabilities in Large Language Models.pdf"
-      ],
-      "reference_answer": "Deceptive behaviors emerge when models optimize for reward signals that can be satisfied through misleading or strategically incorrect responses, especially in complex or adversarial settings."
-    },
-    {
-      "id": "q33",
-      "query": "What risks do deceptive capabilities pose for AI deployment?",
-      "category": "ai_safety",
-      "expected_sources": [
-        "Unmasking the Shadows of AI Investigating Deceptive Capabilities in Large Language Models.pdf"
-      ],
-      "reference_answer": "Deceptive capabilities can undermine trust, enable manipulation, and cause harm in high-stakes applications, making their detection and mitigation critical for safe AI deployment."
-    },
-    {
-      "id": "q34",
-      "query": "What is the role of proofs in proof-carrying AI agents?",
-      "category": "ai_safety",
-      "expected_sources": [
-        "Safe Untrusted Proof-Carrying AI Agents toward the agentic lakehouse.pdf"
-      ],
-      "reference_answer": "Proof-carrying AI agents provide formal proofs that their actions satisfy predefined safety or correctness properties, enabling safe execution even when the agent itself is untrusted."
-    },
-    {
-      "id": "q35",
-      "query": "How does the agentic lakehouse differ from traditional data lakehouses?",
-      "category": "ai_systems",
-      "expected_sources": [
-        "Safe Untrusted Proof-Carrying AI Agents toward the agentic lakehouse.pdf"
-      ],
-      "reference_answer": "The agentic lakehouse extends traditional data lakehouses by allowing AI agents to operate over data while enforcing safety constraints through verification mechanisms."
-    },
-    {
-      "id": "q36",
-      "query": "What mathematical insights help explain generalization in deep learning?",
-      "category": "deep_learning",
-      "expected_sources": [
-        "The Modern Mathematics of Deep Learning.pdf"
-      ],
-      "reference_answer": "Generalization in deep learning is explained using tools from high-dimensional geometry, optimization theory, and statistical learning theory, including margin-based explanations and implicit regularization."
-    },
-    {
-      "id": "q37",
-      "query": "How does inverse reinforcement learning benefit from hierarchical structure?",
-      "category": "reinforcement_learning",
-      "expected_sources": [
-        "Exploring Hierarchy-Aware Inverse Reinforcement Learning.pdf"
-      ],
-      "reference_answer": "Hierarchical structure allows inverse reinforcement learning to capture long-term goals and subtask decomposition, improving interpretability and learning efficiency."
-    },
-    {
-      "id": "q38",
-      "query": "What educational strategies are effective for introducing NLP concepts to non-experts?",
-      "category": "nlp_education",
-      "expected_sources": [
-        "A dissemination workshop for introducing young Italian students to NLP.pdf"
-      ],
-      "reference_answer": "Effective strategies include interactive demonstrations, real-world analogies, and participatory exercises that lower the barrier to understanding NLP concepts."
-    },
-    {
-      "id": "q39",
-      "query": "How do hands-on workshops improve understanding of NLP?",
-      "category": "nlp_education",
-      "expected_sources": [
-        "Teaching NLP with Bracelets and Restaurant Menus An Interactive Workshop for Italian Students.pdf"
-      ],
-      "reference_answer": "Hands-on workshops translate abstract NLP ideas into physical or familiar activities, improving engagement and conceptual understanding."
-    },
-    {
-      "id": "q40",
-      "query": "What limitations do LLMs exhibit regarding word morphology?",
-      "category": "llm",
-      "expected_sources": [
-        "Large Language Models Lack Understanding of Character Composition of Words.pdf"
-      ],
-      "reference_answer": "LLMs struggle with morphology-related tasks because they lack robust character-level understanding, leading to errors in spelling, inflection, and word composition."
-    },
-    {
-      "id": "q41",
-      "query": "How does generative information retrieval change the role of documents?",
-      "category": "information_retrieval",
-      "expected_sources": [
-        "Foundations of GenIR.pdf"
-      ],
-      "reference_answer": "In generative IR, documents are not just retrieved but may be synthesized or reformulated, shifting the focus from ranking to generation."
-    },
-    {
-      "id": "q42",
-      "query": "What are the implications of GenIR for evaluation metrics?",
-      "category": "information_retrieval",
-      "expected_sources": [
-        "Foundations of GenIR.pdf"
-      ],
-      "reference_answer": "Traditional retrieval metrics may be insufficient for GenIR, requiring new evaluation methods that assess relevance, faithfulness, and generation quality."
-    },
-    {
-      "id": "q43",
-      "query": "How can causal reasoning improve reinforcement learning efficiency?",
-      "category": "reinforcement_learning",
-      "expected_sources": [
-        "Causal-Paced Deep Reinforcement Learning.json"
-      ],
-      "reference_answer": "Causal reasoning helps agents focus on actions that have meaningful effects, improving sample efficiency and generalization."
-    },
-    {
-      "id": "q44",
-      "query": "What role does benchmarking play in reinforcement learning research?",
-      "category": "reinforcement_learning",
-      "expected_sources": [
-        "ARLBench Flexible and Efficient Benchmarking for Hyperparameter Optimization in Reinforcement Learni.json"
-      ],
-      "reference_answer": "Benchmarking enables fair comparison of algorithms and hyperparameter optimization methods across standardized environments and metrics."
-    },
-    {
-      "id": "q45",
-      "query": "How does computational physics inform deep learning research?",
-      "category": "deep_learning",
-      "expected_sources": [
-        "Deep Learning and Computational Physics Lecture Notes.json"
-      ],
-      "reference_answer": "Computational physics provides insights into optimization landscapes, dynamical systems, and numerical methods that help explain and improve deep learning models."
-    },
-    {
-      "id": "q46",
-      "query": "What are the benefits of open-source NLP toolkits for low-resource languages?",
-      "category": "nlp",
-      "expected_sources": [
-        "GR-NLP-TOOLKIT An Open-Source NLP Toolkit for Modern Greek.pdf"
-      ],
-      "reference_answer": "They enable broader access to NLP technology, support language preservation, and facilitate research and application development in underrepresented languages."
-    },
-    {
-      "id": "q47",
-      "query": "How does self-consistency relate to personality traits in LLMs?",
-      "category": "llm",
-      "expected_sources": [
-        "Is Self-knowledge and Action Consistent or Not Investigating Large Language Models Personality.pdf"
-      ],
-      "reference_answer": "Self-consistency measures whether an LLM’s stated preferences align with its actions, offering insights into personality-like behavior and reliability."
-    },
-    {
-      "id": "q48",
-      "query": "What risks arise from relying on LLMs for judgment tasks?",
-      "category": "ai_safety",
-      "expected_sources": [
-        "Systematic Evaluation of LLM-as-a-Judge in LLM Alignment Tasks Explainable Metrics and Diverse Promp.pdf"
-      ],
-      "reference_answer": "Risks include bias, inconsistency, lack of transparency, and susceptibility to prompt manipulation."
-    },
-    {
-      "id": "q49",
-      "query": "How can retrieval-augmented systems benefit from GenIR principles?",
-      "category": "rag",
-      "expected_sources": [
-        "Foundations of GenIR.pdf",
-        "RETA-LLM A Retrieval-Augmented Large Language Model Toolkit.pdf"
-      ],
-      "reference_answer": "GenIR principles allow RAG systems to move beyond strict retrieval, enabling flexible generation grounded in retrieved evidence."
-    },
-    {
-      "id": "q50",
-      "query": "Why is interdisciplinary knowledge important in modern AI research?",
-      "category": "ai_research",
-      "expected_sources": [
-        "The Modern Mathematics of Deep Learning.pdf",
-        "Deep Learning and Computational Physics Lecture Notes.json"
-      ],
-      "reference_answer": "Interdisciplinary knowledge integrates mathematics, physics, and computer science, leading to deeper understanding, better models, and more robust AI systems."
     }
   ]
 }
+

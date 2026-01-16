@@ -8,8 +8,6 @@ from llama_index.core import (
     Settings,
     SimpleDirectoryReader
 )
-from llama_index.llms.openai import OpenAI
-from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.llms.mistralai import MistralAI
 from llama_index.embeddings.mistralai import MistralAIEmbedding
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
@@ -24,7 +22,6 @@ class InterviewIndexer:
     def __init__(self, config: dict):
         self.config = config
         self.persist_dir = config.get("persist_dir", "data/processed")
-        self.use_openai_embeddings = config.get("use_openai_embeddings", False)
         self.chunk_size = config.get("chunk_size", 512)
         self.chunk_overlap = config.get("chunk_overlap", 50)
 
@@ -33,9 +30,8 @@ class InterviewIndexer:
     def _init_settings(self):
         load_dotenv()
 
-        provider = os.getenv("LLM_PROVIDER", "mistral").lower()
-
-        if provider == "mistral":
+        # Only set LLM if not already configured (to preserve max_tokens and other settings)
+        if Settings.llm is None:
             mistral_api_key = os.getenv("MISTRAL_API_KEY")
             mistral_model = os.getenv("MISTRAL_MODEL_NAME", "mistral-large-latest")
 
@@ -45,37 +41,14 @@ class InterviewIndexer:
                 temperature=0.1
             )
 
+        # Only set embed_model if not already configured
+        if Settings.embed_model is None:
             Settings.embed_model = HuggingFaceEmbedding(
                 model_name="BAAI/bge-small-en-v1.5",
-                trust_remote_code=True
+                trust_remote_code=True,
+                device="cpu"
             )
             logger.info("Using HuggingFace embeddings")
-
-        elif provider == "openai":
-            model_name = os.getenv("LLM_MODEL_NAME", "gpt-4o-mini")
-            api_key = os.getenv("OPENAI_API_KEY")
-            base_url = os.getenv("OPENAI_API_BASE")
-
-            Settings.llm = OpenAI(
-                model=model_name,
-                api_key=api_key,
-                api_base=base_url,
-                temperature=0.1
-            )
-
-            if self.use_openai_embeddings and api_key:
-                Settings.embed_model = OpenAIEmbedding(
-                    model="text-embedding-3-small",
-                    api_key=api_key,
-                    api_base=base_url
-                )
-                logger.info("Using OpenAI embeddings")
-            else:
-                Settings.embed_model = HuggingFaceEmbedding(
-                    model_name="BAAI/bge-small-en-v1.5",
-                    trust_remote_code=True
-                )
-                logger.info("Using HuggingFace embeddings")
 
     def build_index_from_documents(self, documents: List[dict]) -> Optional[VectorStoreIndex]:
         """Создание индекса из собранных документов"""
@@ -222,26 +195,24 @@ class InterviewIndexer:
 
 
 # Функции для обратной совместимости
-def init_settings(use_openai_embeddings: bool = True):
-    config = {"use_openai_embeddings": use_openai_embeddings}
+def init_settings():
+    config = {}
     indexer = InterviewIndexer(config)
     return indexer
 
 
 def build_index(data_dir: str = "data/raw", persist_dir: str = "data/processed",
-                use_openai_embeddings: bool = False, from_directory: bool = True):
+                from_directory: bool = True):
     """
     Построение индекса из локальных файлов или собранных документов.
     
     Args:
         data_dir: Директория с данными
         persist_dir: Директория для сохранения индекса
-        use_openai_embeddings: Использовать OpenAI эмбеддинги (иначе HuggingFace)
         from_directory: Читать напрямую из директории (PDF/HTML/JSON)
     """
     config = {
-        "persist_dir": persist_dir,
-        "use_openai_embeddings": use_openai_embeddings
+        "persist_dir": persist_dir
     }
 
     indexer = InterviewIndexer(config)
@@ -264,11 +235,9 @@ def build_index(data_dir: str = "data/raw", persist_dir: str = "data/processed",
         return indexer.build_index_from_documents(documents)
 
 
-def load_existing_index(persist_dir: str = "data/processed",
-                        use_openai_embeddings: bool = False):
+def load_existing_index(persist_dir: str = "data/processed"):
     config = {
-        "persist_dir": persist_dir,
-        "use_openai_embeddings": use_openai_embeddings
+        "persist_dir": persist_dir
     }
 
     indexer = InterviewIndexer(config)

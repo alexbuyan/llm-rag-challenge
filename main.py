@@ -20,14 +20,13 @@ def load_config(config_path: str = "config.yaml"):
             "include_sources": ["arxiv", "github", "web"]
         },
         "index": {
-            "use_openai_embeddings": False,
             "persist_dir": "data/processed",
             "chunk_size": 512,
             "chunk_overlap": 50
         },
         "rag": {
             "similarity_top_k": 4,
-            "llm_model": "gpt-4o-mini"
+            "llm_model": "mistral-large-latest"
         }
     }
 

@@ -1,0 +1,31 @@
+services:
+  interview-prep-rag:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: interview-prep-rag
+    ports:
+      - "8501:8501"
+    volumes:
+      # HuggingFace model cache - uses your local cached models
+      - ${HOME}/.cache/huggingface:/root/.cache/huggingface
+      # Data directory with raw files and processed index
+      - ./data:/app/data
+      # Environment file with API keys
+      - ./.env:/app/.env:ro
+      # Configuration file
+      - ./config.yaml:/app/config.yaml:ro
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+      - HF_HUB_CACHE=/root/.cache/huggingface/hub
+      - TOKENIZERS_PARALLELISM=false
+      # Uncomment below for offline mode (requires pre-cached models):
+      # - HF_HUB_OFFLINE=1
+      # - TRANSFORMERS_OFFLINE=1
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

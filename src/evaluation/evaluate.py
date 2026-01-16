@@ -738,8 +738,7 @@ def run_evaluation(
     
     # Initialize indexer and load index
     config = {
-        "persist_dir": persist_dir,
-        "use_openai_embeddings": False
+        "persist_dir": persist_dir
     }
     indexer = InterviewIndexer(config)
     index = indexer.load_existing_index()
