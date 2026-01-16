@@ -369,14 +369,13 @@ class InterviewRAGService:
 
 # Backward compatibility class
 class RAGService:
-    def __init__(self, persist_dir: str = "data/processed", use_openai_embeddings: bool = True):
+    def __init__(self, persist_dir: str = "data/processed"):
         self.persist_dir = persist_dir
-        self.use_openai_embeddings = use_openai_embeddings
         self.rag_service = None
 
     def initialize(self):
         from src.processing.index import load_existing_index
-        index = load_existing_index(self.persist_dir, self.use_openai_embeddings)
+        index = load_existing_index(self.persist_dir)
         if not index:
             return False
 

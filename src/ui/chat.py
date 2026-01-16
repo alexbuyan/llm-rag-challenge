@@ -6,16 +6,36 @@ hybrid retrieval (vector + BM25) for finding relevant study materials.
 """
 
 import os
+import re
 from typing import Dict, Any, List, Optional, Generator
 from dataclasses import dataclass
 
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
+
+def strip_html_tags(text: str) -> str:
+    """Remove HTML tags and clean up whitespace."""
+    # Remove HTML tags
+    clean = re.sub(r'<[^>]+>', ' ', text)
+    # Remove extra whitespace
+    clean = re.sub(r'\s+', ' ', clean).strip()
+    return clean
+
+
+def extract_title_from_filename(filename: str) -> str:
+    """Extract a readable title from a filename."""
+    if not filename:
+        return "Unknown"
+    # Remove extension and clean up
+    name = re.sub(r'\.[^.]+$', '', filename)
+    # Remove leading numbers/IDs
+    name = re.sub(r'^\d+\s*', '', name)
+    return name if name else "Unknown"
+
 from llama_index.core import Settings
 from llama_index.core.chat_engine import CondensePlusContextChatEngine
 from llama_index.core.memory import ChatMemoryBuffer
 from llama_index.core.llms import ChatMessage, MessageRole
-from llama_index.llms.openai import OpenAI
 from llama_index.llms.mistralai import MistralAI
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from dotenv import load_dotenv
@@ -48,18 +68,18 @@ class ChatService:
     def __init__(
         self,
         persist_dir: str = "data/processed",
-        use_openai_embeddings: bool = False,
         llm_model: str = None,
         temperature: float = 0.1,
+        max_tokens: int = 4096,
         similarity_top_k: int = 5,
         bm25_weight: float = 0.3,
         vector_weight: float = 0.7,
         memory_token_limit: int = 3000
     ):
         self.persist_dir = persist_dir
-        self.use_openai_embeddings = use_openai_embeddings
         self.llm_model = llm_model
         self.temperature = temperature
+        self.max_tokens = max_tokens
         self.similarity_top_k = similarity_top_k
         self.bm25_weight = bm25_weight
         self.vector_weight = vector_weight
@@ -84,49 +104,35 @@ class ChatService:
         try:
             load_dotenv()
 
-            # Setup LLM
-            llm_provider = os.getenv("LLM_PROVIDER", "openai").lower()
-            model_name = self.llm_model or os.getenv("LLM_MODEL_NAME")
+            # Setup LLM (Mistral AI)
+            model_name = self.llm_model or os.getenv("MISTRAL_MODEL_NAME", "mistral-large-latest")
+            api_key = os.getenv("MISTRAL_API_KEY")
+            
+            if not api_key:
+                logger.error("MISTRAL_API_KEY not found in environment")
+                return False
 
-            if llm_provider == "mistral":
-                api_key = os.getenv("MISTRAL_API_KEY")
-                if not api_key:
-                    logger.error("MISTRAL_API_KEY not found in environment")
-                    return False
-
-                Settings.llm = MistralAI(
-                    model=model_name or "mistral-large-latest",
-                    api_key=api_key,
-                    temperature=self.temperature
-                )
-
-            else:
-                # Default: OpenAI
-                api_key = os.getenv("OPENAI_API_KEY")
-                base_url = os.getenv("OPENAI_API_BASE")
-
-                if not api_key:
-                    logger.error("OPENAI_API_KEY not found in environment")
-                    return False
-
-                Settings.llm = OpenAI(
-                    model=model_name or "gpt-4o-mini",
-                    api_key=api_key,
-                    api_base=base_url,
-                    temperature=self.temperature
-                )
+            logger.info(f"Initializing MistralAI with: model={model_name}, temperature={self.temperature}, max_tokens={self.max_tokens}")
+            
+            Settings.llm = MistralAI(
+                model=model_name,
+                api_key=api_key,
+                temperature=self.temperature,
+                max_tokens=self.max_tokens,
+                additional_kwargs={"max_tokens": self.max_tokens}
+            )
             
             # Setup embeddings
             Settings.embed_model = HuggingFaceEmbedding(
                 model_name="BAAI/bge-small-en-v1.5",
-                trust_remote_code=True
+                trust_remote_code=True,
+                device="cpu"
             )
             
             # Load the existing index
             logger.info(f"Loading index from {self.persist_dir}...")
             self.index = load_existing_index(
-                persist_dir=self.persist_dir,
-                use_openai_embeddings=self.use_openai_embeddings
+                persist_dir=self.persist_dir
             )
             
             if not self.index:
@@ -147,11 +153,23 @@ class ChatService:
             )
             
             # Create chat engine with context
+            # Custom context prompt to encourage comprehensive answers
+            context_prompt = (
+                "Here is relevant context from the knowledge base:\n"
+                "---------------------\n"
+                "{context_str}\n"
+                "---------------------\n"
+                "Using the above context, provide a detailed and comprehensive answer to the question. "
+                "Do not cut your response short - provide a complete answer."
+            )
+            
             self.chat_engine = CondensePlusContextChatEngine.from_defaults(
                 retriever=self.index.as_retriever(similarity_top_k=self.similarity_top_k),
                 memory=self.memory,
                 llm=Settings.llm,
                 system_prompt=self._get_system_prompt(),
+                context_prompt=context_prompt,
+                skip_condense=True,
                 verbose=False
             )
             
@@ -259,9 +277,13 @@ Format your responses using markdown for better readability:
             streaming_response = self.chat_engine.stream_chat(message)
             
             full_response = ""
+            token_count = 0
             for token in streaming_response.response_gen:
                 full_response += token
+                token_count += 1
                 yield token
+            
+            logger.info(f"Stream completed: {token_count} tokens, {len(full_response)} chars")
             
             return ChatResponse(
                 message=full_response,
@@ -285,16 +307,37 @@ Format your responses using markdown for better readability:
             metadata = node.node.metadata
             content = result.get("content", "")
             
+            # Clean HTML from content
+            clean_content = strip_html_tags(content)
+            
+            # Get title - fallback to extracting from filename if unknown
+            title = metadata.get("title", "")
+            if not title or title == "Unknown":
+                title = extract_title_from_filename(metadata.get("file_name", ""))
+            
+            # Determine source type from file extension
+            file_name = metadata.get("file_name", "")
+            source_type = metadata.get("source", "")
+            if not source_type or source_type == "Unknown":
+                if file_name.endswith('.pdf'):
+                    source_type = "PDF"
+                elif file_name.endswith('.html'):
+                    source_type = "HTML"
+                elif file_name.endswith('.json'):
+                    source_type = "JSON"
+                else:
+                    source_type = "Document"
+            
             source = {
                 "id": i,
-                "title": metadata.get("title", "Unknown"),
-                "source": metadata.get("source", "Unknown"),
+                "title": title,
+                "source": source_type,
                 "url": metadata.get("url", ""),
-                "file_name": metadata.get("file_name", ""),
+                "file_name": file_name,
                 "combined_score": round(result.get("combined_score", 0), 3),
                 "vector_score": round(result.get("vector_score", 0), 3),
                 "bm25_score": round(result.get("bm25_score", 0), 3),
-                "content_preview": content[:300] + "..." if len(content) > 300 else content
+                "content_preview": clean_content[:300] + "..." if len(clean_content) > 300 else clean_content
             }
             sources.append(source)
         

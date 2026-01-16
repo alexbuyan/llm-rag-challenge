@@ -6,6 +6,7 @@ Run with: uv run streamlit run src/ui/app.py
 
 import streamlit as st
 import sys
+import yaml
 from pathlib import Path
 
 # Add project root to path for imports
@@ -13,6 +14,34 @@ project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
 from src.ui.chat import ChatService
+
+
+def load_config(config_path: str = "config.yaml") -> dict:
+    """Load configuration from YAML file."""
+    default_config = {
+        "index": {
+            "persist_dir": "data/processed",
+        },
+        "rag": {
+            "similarity_top_k": 5,
+            "temperature": 0.1,
+            "max_tokens": 4096,
+        }
+    }
+    
+    config_file = project_root / config_path
+    if config_file.exists():
+        try:
+            with open(config_file, 'r') as f:
+                user_config = yaml.safe_load(f)
+            # Merge configs
+            for section in default_config:
+                if section in user_config:
+                    default_config[section].update(user_config[section])
+        except Exception as e:
+            st.warning(f"Error loading config: {e}")
+    
+    return default_config
 
 
 # Page configuration
@@ -135,15 +164,24 @@ def initialize_chat_service():
     load_dotenv()
     
     # Check for API key first
-    if not os.getenv("OPENAI_API_KEY"):
-        st.session_state.init_error = "OPENAI_API_KEY not found. Please create a .env file with your API key (see env.example)."
+    if not os.getenv("MISTRAL_API_KEY"):
+        st.session_state.init_error = "No API key found. Please create a .env file with MISTRAL_API_KEY (see env.example)."
         return False
     
     if st.session_state.chat_service is None:
+        # Load config from config.yaml
+        config = load_config()
+        index_config = config.get("index", {})
+        rag_config = config.get("rag", {})
+        
+        print(f"[CONFIG] RAG config loaded: {rag_config}")
+        print(f"[CONFIG] max_tokens from config: {rag_config.get('max_tokens', 4096)}")
+        
         st.session_state.chat_service = ChatService(
-            persist_dir="data/processed",
-            use_openai_embeddings=False,
-            similarity_top_k=5,
+            persist_dir=index_config.get("persist_dir", "data/processed"),
+            similarity_top_k=rag_config.get("similarity_top_k", 5),
+            temperature=rag_config.get("temperature", 0.1),
+            max_tokens=rag_config.get("max_tokens", 4096),
             bm25_weight=0.3,
             vector_weight=0.7
         )
@@ -249,13 +287,13 @@ def render_chat_interface():
     """, unsafe_allow_html=True)
     
     # Show setup instructions if there's an initialization error
-    if st.session_state.init_error and "OPENAI_API_KEY" in st.session_state.init_error:
+    if st.session_state.init_error and "MISTRAL_API_KEY" in st.session_state.init_error:
         st.warning("### ⚠️ Setup Required")
         st.markdown("""
-        To use this application, you need to configure your OpenAI API key:
+        To use this application, you need to configure your Mistral API key:
         
         1. Create a `.env` file in the project root (copy from `env.example`)
-        2. Add your OpenAI API key: `OPENAI_API_KEY=sk-your-key-here`
+        2. Add your Mistral API key: `MISTRAL_API_KEY=your-key-here`
         3. Restart the application
         
         ```bash
